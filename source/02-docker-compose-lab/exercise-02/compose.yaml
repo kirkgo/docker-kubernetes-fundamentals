@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: node:20-alpine
+    working_dir: /app
+    command: node -e "
+      const http = require('http');
+      const server = http.createServer((req, res) => {
+      res.writeHead(200, {'Content-Type':'application/json'});
+      res.end(JSON.stringify({service:'backend', status:'running'}));
+      });
+      server.listen(3000, () => console.log('Backend on port 3000'));
+      "
+    ports:
+      - "3000:3000"
+
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+    ports:
+      - "5432:5432"

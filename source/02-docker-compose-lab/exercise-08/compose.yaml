@@ -1,0 +1,9 @@
+services:
+  worker:
+    image: alpine
+    command: sh -c "echo Worker $$HOSTNAME started && sleep 3600"
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080-8085:80"

@@ -299,13 +299,13 @@ docker inspect log-test
 To extract specific fields using Go template formatting:
 
 ```bash
-docker inspect --format '{{.NetworkSettings.IPAddress}}' log-test
+docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' log-test
 ```
 
 **Windows (PowerShell):** use double quotes on the outer layer:
 
 ```powershell
-docker inspect --format "{{.NetworkSettings.IPAddress}}" log-test
+docker inspect --format "{{.NetworkSettings.Networks.bridge.IPAddress}}" log-test
 ```
 
 ### 7.2 Viewing Logs
